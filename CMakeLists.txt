@@ -16,3 +16,6 @@ target_link_libraries(svgtomesh png)
 target_link_libraries(svgtomesh boost_system)
 target_link_libraries(svgtomesh boost_filesystem)
 target_link_libraries(svgtomesh tinyxml2)
+
+# For make install.
+install (TARGETS svgtomesh DESTINATION bin)
