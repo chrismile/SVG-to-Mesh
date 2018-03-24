@@ -1,0 +1,36 @@
+#!/usr/bin/python
+
+import sys
+import os
+
+Import('env')
+
+# Create test environment
+if ARGUMENTS.get('exec_tests', 'True') == 'True':
+	includepaths = env['CPPPATH']
+	
+	test_src = ['SVG/Parse/ParseColor.cpp']
+	env_test = Environment(toolpath=['../../tools/'],tools=['default','cxxtest','testenv'])
+	env_test.Append(LIBS=['boost_system', 'boost_regex'])
+	env_test.CreateCxxTest('Tests/TestParseColor.hpp', test_src, env, includepaths)
+	
+	test_src = ['SVG/Parse/ParseIRI.cpp']
+	env_test = Environment(toolpath=['../../tools/'],tools=['default','cxxtest','testenv'])
+	env_test.Append(LIBS=['boost_system', 'boost_regex'])
+	env_test.CreateCxxTest('Tests/TestParseIRI.hpp', test_src, env, includepaths)
+
+def getSourceFilesRecursively(dir):
+	files = []
+	for root, directories, filenames in os.walk(dir):
+		for filename in filenames:
+			if filename.endswith(".cpp"):
+				files.append(os.path.join(root[len(dir)+1:], filename))
+	return files
+
+# Get all .cpp files in the 'src' directory recursively
+sourceFiles = getSourceFilesRecursively(Dir('.').srcnode().abspath)
+for sourceFile in sourceFiles:
+	env.src_files.append(env.Object(sourceFile))
+	#env.src_files.append(env.Object(Glob(os.path.join(directory, '*.cpp'))))
+
+Export('env')

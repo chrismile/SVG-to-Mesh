@@ -56,3 +56,6 @@ docs/latex/*
 /Debug/
 
 build/*
+
+*.pyc
+.sconsign.dblite
