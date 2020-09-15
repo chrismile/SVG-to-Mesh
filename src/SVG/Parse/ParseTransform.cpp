@@ -22,7 +22,7 @@ Matrix3 parseElementTransformMatrix(XMLElement *svgElement)
 	// Get the transform attribute of the XML element
 	string transformString = svgElement->Attribute("transform");
 
-	// Iterate over all of the concatenated transformations (pattern: "type(content)"
+	// Iterate over all of the concatenated transformations (pattern: "type(content)").
 	// First match: Transform type. Second match: Transform information in the brackets.
 	boost::regex tranformRegex("(\\S+)\\s*\\(\\s*(\\S+)\\s*\\)(.*)");
 	boost::smatch what;
@@ -31,7 +31,7 @@ Matrix3 parseElementTransformMatrix(XMLElement *svgElement)
 		string transformContent = what[2];
 		transformString = what[3]; // Continue with next part of string
 
-		// Now split the transform content in the brackets (multiple float values seperated by space or commas)
+		// Now split the transform content in the brackets (multiple float values separated by space or commas).
 		vector<string> transformData = getTokenList(transformContent, NUMBER_REGEX_STRING/*"(\\w|\\.|-|\\+|e|E)+"*/);
 
 		if (transformType == "translate") {
