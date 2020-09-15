@@ -24,9 +24,9 @@ Matrix3 parseElementTransformMatrix(XMLElement *svgElement)
 
 	// Iterate over all of the concatenated transformations (pattern: "type(content)").
 	// First match: Transform type. Second match: Transform information in the brackets.
-	boost::regex tranformRegex("(\\S+)\\s*\\(\\s*(\\S+)\\s*\\)(.*)");
+	boost::regex transformRegex("(\\S+)\\s*\\(\\s*(\\S+)\\s*\\)(.*)");
 	boost::smatch what;
-	while (regex_search(transformString, what, tranformRegex)) {
+	while (regex_search(transformString, what, transformRegex)) {
 		string transformType = what[1];
 		string transformContent = what[2];
 		transformString = what[3]; // Continue with next part of string
